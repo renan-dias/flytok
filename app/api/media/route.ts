@@ -20,9 +20,19 @@ import net from 'node:net';
  * contra rebinding) e apenas respostas de tipo vídeo passam.
  */
 
+// Precisa ser Node: o runtime Edge não tem `node:dns` nem `node:net`, usados
+// na checagem de SSRF.
 export const runtime = 'nodejs';
+
 // A resposta depende inteiramente da query e dos cabeçalhos Range.
 export const dynamic = 'force-dynamic';
+
+/**
+ * Teto de duração da função na Vercel. O plano da conta ainda manda — o valor é
+ * reduzido ao limite do plano se for maior. Vídeos são servidos por faixas
+ * (Range), então cada invocação transfere um pedaço, não o arquivo inteiro.
+ */
+export const maxDuration = 30;
 
 /** Faixas reservadas que nunca devem ser alcançadas a partir do servidor. */
 function isPrivateAddress(ip: string): boolean {
@@ -97,7 +107,9 @@ export async function GET(req: NextRequest) {
       // Alguns hosts (o Wikimedia entre eles) recusam requisições sem User-Agent.
       headers: { ...headers, 'user-agent': 'flytok-lab/0.1 (projeto educacional)' },
       redirect: 'follow',
-      signal: AbortSignal.timeout(20_000),
+      // Curto de propósito: uma faixa de vídeo que demora mais que isso já
+      // estouraria a duração da função antes de terminar.
+      signal: AbortSignal.timeout(8_000),
       cache: 'no-store',
     });
   } catch (err) {
