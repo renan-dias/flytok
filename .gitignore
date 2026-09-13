@@ -5,3 +5,8 @@ out
 .vercel
 *.tsbuildinfo
 next-env.d.ts
+
+# Download bruto das anotações do FlyWire (~32 MB). É cache do script de build,
+# não fonte: `node scripts/build-connectome.mjs` baixa de novo quando falta.
+# O que precisa ir para o repositório é o binário gerado em public/flywire/.
+.cache
