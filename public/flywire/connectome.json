@@ -1,0 +1,43 @@
+{
+  "dataset": "FlyWire FAFB v783",
+  "source": "Schlegel et al. 2024, Nature 634:139-152 — flywire_annotations Supplemental_file1",
+  "license": "CC-BY-4.0",
+  "url": "https://raw.githubusercontent.com/flyconnectome/flywire_annotations/main/supplemental_files/Supplemental_file1_neuron_annotations.tsv",
+  "generatedAt": "2026-09-13T21:57:49.628Z",
+  "neuronCount": 139248,
+  "skipped": 0,
+  "quantization": 16000,
+  "micronsPerUnit": 408.81,
+  "boundsMicrons": {
+    "min": [
+      85.26,
+      51.36,
+      0.64
+    ],
+    "max": [
+      902.88,
+      445.632,
+      279
+    ]
+  },
+  "clusterIndex": {
+    "visualLobula": 0,
+    "pamDopamine": 1,
+    "ppl1Aversion": 2,
+    "centralComplex": 3,
+    "other": 4
+  },
+  "counts": {
+    "visualLobula": 53201,
+    "pamDopamine": 307,
+    "ppl1Aversion": 16,
+    "centralComplex": 2875,
+    "other": 82849
+  },
+  "sides": {
+    "left": 69956,
+    "right": 69088,
+    "center": 174,
+    "na": 30
+  }
+}

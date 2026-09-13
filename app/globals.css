@@ -1,0 +1,134 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Paleta em variáveis CSS. O tema escuro é o padrão (é um laboratório, afinal);
+ * `.theme-light` inverte apenas as variáveis — nenhuma classe de componente
+ * precisa saber qual tema está ativo.
+ *
+ * Valores em canais RGB crus para o Tailwind poder aplicar opacidade
+ * (`bg-lab-panel/80`).
+ */
+:root {
+  --lab-void: 4 6 11;
+  --lab-panel: 10 15 26;
+  --lab-edge: 22 32 58;
+  --lab-sunken: 0 0 0;
+  --ink: 226 232 240;
+  --ink-dim: 148 163 184;
+  --ink-faint: 100 116 139;
+  --accent: 34 211 238;
+  --accent-soft: 125 211 252;
+  --sunken-alpha: 0.35;
+  color-scheme: dark;
+}
+
+.theme-light {
+  --lab-void: 236 241 247;
+  --lab-panel: 255 255 255;
+  --lab-edge: 199 211 226;
+  --lab-sunken: 226 233 241;
+  --ink: 15 23 42;
+  --ink-dim: 71 85 105;
+  --ink-faint: 111 125 145;
+  --accent: 14 116 144;
+  --accent-soft: 3 105 161;
+  --sunken-alpha: 0.75;
+  color-scheme: light;
+}
+
+html,
+body {
+  height: 100%;
+  background: rgb(var(--lab-void));
+  color: rgb(var(--ink));
+}
+
+body {
+  /* Textura de laboratório: grade sutil sob toda a interface. */
+  background-image:
+    radial-gradient(circle at 18% 12%, rgb(var(--accent) / 0.07), transparent 42%),
+    radial-gradient(circle at 82% 88%, rgba(192, 38, 211, 0.07), transparent 45%),
+    linear-gradient(rgb(var(--ink) / 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--ink) / 0.018) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    100% 100%,
+    28px 28px,
+    28px 28px;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.theme-light body {
+  background-image:
+    radial-gradient(circle at 18% 12%, rgb(var(--accent) / 0.08), transparent 42%),
+    radial-gradient(circle at 82% 88%, rgba(192, 38, 211, 0.05), transparent 45%),
+    linear-gradient(rgb(15 23 42 / 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(15 23 42 / 0.04) 1px, transparent 1px);
+}
+
+/*
+ * Fundo "afundado" dos campos e itens de lista. No escuro é um poço preto; no
+ * claro precisa ser um cinza sólido, senão o preto translúcido suja a página.
+ */
+.sunken {
+  background-color: rgb(var(--lab-sunken) / var(--sunken-alpha));
+}
+
+/* Barras de rolagem discretas nos painéis laterais. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--lab-edge)) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgb(var(--lab-edge));
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Polegar dos sliders de peso sináptico. */
+input[type='range']::-webkit-slider-thumb {
+  appearance: none;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: rgb(var(--accent));
+  box-shadow: 0 0 9px rgb(var(--accent) / 0.7);
+  cursor: pointer;
+}
+
+input[type='range']::-moz-range-thumb {
+  width: 13px;
+  height: 13px;
+  border: none;
+  border-radius: 50%;
+  background: rgb(var(--accent));
+  box-shadow: 0 0 9px rgb(var(--accent) / 0.7);
+  cursor: pointer;
+}
+
+@keyframes flytok-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.pulse-dot {
+  animation: flytok-pulse 1.6s ease-in-out infinite;
+}
